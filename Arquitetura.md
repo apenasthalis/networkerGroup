@@ -30,7 +30,7 @@ Este é um projeto **Fullstack** encaminhado à **boas práticas** e **perfomanc
 
 ## 3. Diagrama de Arquitetura
 
-![alt text](image.png)
+![Diagrama](image.png)
 
 ## 4. Modelagem do Banco de Dados
 ### 4.1 intention
