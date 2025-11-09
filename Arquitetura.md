@@ -1,4 +1,4 @@
-# 🧩 Documento de Arquitetura — Plataforma de Gestão de Networking
+# Documento de Arquitetura — Plataforma de Gestão de Networking
 
 ## 1. Visão Geral
 
@@ -6,7 +6,7 @@ Este documento descreve a arquitetura para o projeto **NetworkerGroup**, cujo ob
 
 Este é um projeto **Fullstack** encaminhado à **boas práticas** e **perfomance**, levando em consideração a **componentização** adequada e os **testes** centrais.
 
-### 🎯 Objetivos do Sistema
+### Objetivos do Sistema
 - Centralizar o cadastro e gestão de membros.
 - Facilitar comunicações e controle de presença (check-in).
 - Permitir o registro e acompanhamento de indicações de negócios.
@@ -279,5 +279,5 @@ POST /api/indicacoes
 
 ---
 
-✍️ Autor: Thalis Gabriel
-📅 Data: ()
+Autor: Thalis Gabriel
+  Data: ()
