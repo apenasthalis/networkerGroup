@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Intention {
+  id                   Int       @id @default(autoincrement())
+  public_id            String    @unique @default(uuid())
+  business_name        String
+  email                String
+  reason_participation String
+  is_confirmed         Boolean   @default(false)
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+
+  members Member[]
+}
+
+model Member {
+  id          Int       @id @default(autoincrement())
+  public_id   String    @unique @default(uuid())
+  intention_id Int
+  is_active   Boolean   @default(false)
+  phone       String
+  token       Boolean   @default(false)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  intention   Intention @relation(fields: [intention_id], references: [id])
+  indications_origin      Indication[] @relation("IndicationsOrigin")
+  indications_destination Indication[] @relation("IndicationsDestination")
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  public_id  String   @unique @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+}
+
+enum Status {
+  nova
+  em_andamento
+  fechada
+}
+
+model Indication {
+  id                Int       @id @default(autoincrement())
+  public_id         String    @unique @default(uuid())
+  origin_member_id  Int
+  target_member_id Int
+  description       String
+  status            Status
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  origin_member     Member    @relation("IndicationsOrigin", fields: [origin_member_id], references: [id])
+  target_member     Member    @relation("IndicationsDestination", fields: [target_member_id], references: [id])
+}
