@@ -4,4 +4,4 @@ export declare function getAll(req: Request, res: Response): Promise<void>;
 export declare function getById(req: Request, res: Response): Promise<Response<any, Record<string, any>> | undefined>;
 export declare function update(req: Request, res: Response): Promise<void>;
 export declare function remove(req: Request, res: Response): Promise<void>;
-//# sourceMappingURL=intentionController.d.ts.map
+//# sourceMappingURL=indicationController.d.ts.map

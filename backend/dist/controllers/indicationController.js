@@ -38,32 +38,32 @@ exports.getAll = getAll;
 exports.getById = getById;
 exports.update = update;
 exports.remove = remove;
-const intentionService = __importStar(require("../services/intentionService"));
+const indicationService = __importStar(require("../services/indicationService"));
 async function create(req, res) {
     try {
-        const intention = await intentionService.createIntention(req.body);
-        res.status(201).json(intention);
+        const indication = await indicationService.createIndication(req.body);
+        res.status(201).json(indication);
     }
     catch (error) {
         res.status(400).json({ error: error.message });
     }
 }
 async function getAll(req, res) {
-    const intentions = await intentionService.getIntentions();
-    res.json(intentions);
+    const indications = await indicationService.getIndications();
+    res.json(indications);
 }
 async function getById(req, res) {
     const publicId = String(req.params.publicId);
-    const intention = await intentionService.getIntentionById(publicId);
-    if (!intention)
-        return res.status(404).json({ error: 'Intenção não encontrada' });
-    res.json(intention);
+    const indication = await indicationService.getIndicationById(publicId);
+    if (!indication)
+        return res.status(404).json({ error: 'Indicação não encontrada' });
+    res.json(indication);
 }
 async function update(req, res) {
     const publicId = String(req.params.publicId);
     try {
-        const intention = await intentionService.updateIntention(publicId, req.body);
-        res.json(intention);
+        const indication = await indicationService.updateIndication(publicId, req.body);
+        res.json(indication);
     }
     catch (error) {
         res.status(400).json({ error: error.message });
@@ -72,11 +72,11 @@ async function update(req, res) {
 async function remove(req, res) {
     const publicId = String(req.params.publicId);
     try {
-        await intentionService.deleteIntention(publicId);
+        await indicationService.deleteIndication(publicId);
         res.status(204).send();
     }
     catch (error) {
         res.status(400).json({ error: error.message });
     }
 }
-//# sourceMappingURL=intentionController.js.map
+//# sourceMappingURL=indicationController.js.map

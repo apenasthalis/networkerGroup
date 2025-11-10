@@ -34,12 +34,12 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const intentionController = __importStar(require("../controllers/intentionController"));
+const indicationController = __importStar(require("../controllers/indicationController"));
 const router = (0, express_1.Router)();
-router.get("/", intentionController.getAll);
-router.get("/:publicId", intentionController.getById);
-router.post("/", intentionController.create);
-router.put("/:publicId", intentionController.update);
-router.delete("/:publicId", intentionController.remove);
+router.get("/", indicationController.getAll);
+router.get("/:publicId", indicationController.getById);
+router.post("/", indicationController.create);
+router.put("/:publicId", indicationController.update);
+router.delete("/:publicId", indicationController.remove);
 exports.default = router;
-//# sourceMappingURL=intention.routes.js.map
+//# sourceMappingURL=indication.routes.js.map
