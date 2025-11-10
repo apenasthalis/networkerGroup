@@ -1,25 +1,43 @@
-import { Request, Response } from "express";
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
+import * as intentionService from '../services/intentionService';
 
-const prisma = new PrismaClient();
-class intentionController {
-
-  async list(req: Request, res: Response) {
-    const intentions = await prisma.admin.findMany();
-
-    return res.json(intentions);
-  }
-
-  async getById(req: Request, res: Response) {
-    const { id } = req.params;
-    const user = { id, name: "Usuário de exemplo" };
-    return res.json(user);
-  }
-
-  async create(req: Request, res: Response) {
-    const { name } = req.body;
-    return res.status(201).json({ message: `Usuário '${name}' criado com sucesso!` });
+export async function create(req: Request, res: Response) {
+  try {
+    const intention = await intentionService.createIntention(req.body);
+    res.status(201).json(intention);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
   }
 }
 
-export default new intentionController();
+export async function getAll(req: Request, res: Response) {
+  const intentions = await intentionService.getIntentions();
+  res.json(intentions);
+}
+
+export async function getById(req: Request, res: Response) {
+  const publicId = String(req.params.publicId);
+  const intention = await intentionService.getIntentionById(publicId);
+  if (!intention) return res.status(404).json({ error: 'Intenção não encontrada' });
+  res.json(intention);
+}
+
+export async function update(req: Request, res: Response) {
+  const publicId = String(req.params.publicId);
+  try {
+    const intention = await intentionService.updateIntention(publicId, req.body);
+    res.json(intention);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function remove(req: Request, res: Response) {
+  const publicId = String(req.params.publicId);
+  try {
+    await intentionService.deleteIntention(publicId);
+    res.status(204).send();
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
