@@ -2,7 +2,7 @@ import prisma from '../database/PrismaClient';
 import { Indication } from '@prisma/client';
 
 export async function createIndication(
-  data: Omit<Indication, 'id' | 'public_id' | 'created_at' | 'updated_at'>
+  data: Omit<Indication, 'id' | 'public_id' | 'business_name' | 'email' | 'reason_participation'>
 ) {
   return prisma.indication.create({ data });
 }

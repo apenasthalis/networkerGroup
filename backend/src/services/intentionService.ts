@@ -1,8 +1,8 @@
 import prisma from '../database/PrismaClient';
-import { Intention } from '@prisma/client';
+import { intention } from '@prisma/client';
 
 export async function createIntention(
-  data: Omit<Intention, 'id' | 'createdAt'>
+  data: Omit<intention, 'id' | 'public_id' |  'created_at'>
 ) {
   return prisma.intention.create({ data });
 }
@@ -15,7 +15,7 @@ export async function getIntentionById(public_id: string) {
   return prisma.intention.findUnique({ where: { public_id } });
 }
 
-export async function updateIntention(public_id: string, data: Partial<Intention>) {
+export async function updateIntention(public_id: string, data: Partial<intention>) {
   return prisma.intention.update({
     where: { public_id },
     data,

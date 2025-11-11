@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Intention {
+model intention {
   id                   Int       @id @default(autoincrement())
   public_id            String    @unique @default(uuid())
   business_name        String
@@ -17,10 +17,10 @@ model Intention {
   created_at           DateTime  @default(now())
   updated_at           DateTime  @updatedAt
 
-  members Member[]
+  members member[]
 }
 
-model Member {
+model member {
   id          Int       @id @default(autoincrement())
   public_id   String    @unique @default(uuid())
   intention_id Int
@@ -30,20 +30,19 @@ model Member {
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
 
-  intention   Intention @relation(fields: [intention_id], references: [id])
+  intention   intention @relation(fields: [intention_id], references: [id])
   indications_origin      Indication[] @relation("IndicationsOrigin")
   indications_destination Indication[] @relation("IndicationsDestination")
 }
 
-model Admin {
-  id         Int      @id @default(autoincrement())
-  public_id  String   @unique @default(uuid())
-  name       String
-  email      String   @unique
-  password   String
+enum status_intention {
+  aceita
+  pendente
+  recusada
 }
 
-enum Status {
+
+enum status_indication {
   nova
   em_andamento
   fechada
@@ -55,10 +54,10 @@ model Indication {
   origin_member_id  Int
   target_member_id Int
   description       String
-  status            Status
+  status            status_indication @default(nova)
   created_at        DateTime  @default(now())
   updated_at        DateTime  @updatedAt
 
-  origin_member     Member    @relation("IndicationsOrigin", fields: [origin_member_id], references: [id])
-  target_member     Member    @relation("IndicationsDestination", fields: [target_member_id], references: [id])
+  origin_member     member    @relation("IndicationsOrigin", fields: [origin_member_id], references: [id])
+  target_member     member    @relation("IndicationsDestination", fields: [target_member_id], references: [id])
 }
