@@ -34,7 +34,9 @@ function AdminPageContent() {
       queryClient.invalidateQueries({ queryKey: ["intentions"] });
       toast.success("Intenção aprovada com sucesso!");
       if (data.data.member && data.data.member.token) {
-        toast.info(`Token de acesso enviado para o email do novo membro.`);
+        console.log(`=== Email Simulado ====`);
+        console.log(`Para: ${data.data.member.email}`);
+        console.log(`Token de acesso: ${data.data.member.token}`);
       }
     },
     onError: (error: any) => {
