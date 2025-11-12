@@ -10,8 +10,10 @@ datasource db {
 model intention {
   id                   Int       @id @default(autoincrement())
   public_id            String    @unique @default(uuid())
+  name                 String?
   business_name        String
   email                String
+  status               status_intention @default(pendente)
   reason_participation String
   is_confirmed         Boolean   @default(false)
   created_at           DateTime  @default(now())
@@ -21,14 +23,27 @@ model intention {
 }
 
 model member {
-  id          Int       @id @default(autoincrement())
-  public_id   String    @unique @default(uuid())
-  intention_id Int
-  is_active   Boolean   @default(false)
-  phone       String
-  token       Boolean   @default(false)
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  id            Int       @id @default(autoincrement())
+  public_id     String    @unique @default(uuid())
+  name          String?
+  email         String
+  business_name String
+  intention_id  Int
+  is_active     Boolean   @default(false)
+  phone         String?
+  token         String    @unique
+  address       String?
+  city          String?
+  state         String?
+  zip_code      String?
+  linkedin      String?
+  position      String?
+  birth_date    DateTime?
+  cpf           String?
+  education     String?
+  experience    String?
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
 
   intention   intention @relation(fields: [intention_id], references: [id])
   indications_origin      Indication[] @relation("IndicationsOrigin")
