@@ -27,9 +27,6 @@ export async function deleteMember(public_id: string) {
 }
 
 export async function completeMemberRegistration(token: string, formData: any) {
-  console.log("Received token:", token);
-  console.log("Received formData:", formData);
-
   const memberToUpdate = await prisma.member.findUnique({
     where: { token },
   });

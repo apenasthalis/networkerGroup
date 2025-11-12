@@ -293,8 +293,7 @@ export async function updateIntention(
   public_id: string,
   data: Partial&lt;intention&gt;
 ) {
-  console.log("updateIntention: Received public_id:", public_id);
-  console.log("updateIntention: Received data:", data);
+
 &nbsp;
   const updatedIntention = await prisma.intention.update({
     where: { public_id },
