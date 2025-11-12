@@ -49,13 +49,10 @@ function CadastroCompletoForm() {
         const response = await api.post('/auth/validate-token', { token: userToken });
         if (response.status === 200 && response.data.member) {
           setTokenValido(true);
-          // Assuming member object contains intention details or can be used to fetch them
-          // For now, let's mock intencaoData from member details if available
           setIntencaoData({
             nome: response.data.member.name,
             email: response.data.member.email,
             empresa: response.data.member.business_name,
-            // Add other intention details if available in member object
           });
         } else {
           sessionStorage.removeItem("userToken");
@@ -83,15 +80,14 @@ function CadastroCompletoForm() {
     }
 
     try {
-      // Assuming there's an endpoint to complete member registration
       const response = await api.put(`/member/complete-registration`, {
-        token, // Send the token for authentication/identification
+        token,
         ...formData,
       });
 
       if (response.status === 200) {
         toast.success("Cadastro completo realizado com sucesso!");
-        sessionStorage.removeItem("userToken"); // Clear token after successful registration
+        sessionStorage.removeItem("userToken");
         router.push("/");
       } else {
         toast.error("Erro ao finalizar cadastro. Tente novamente.");
@@ -106,7 +102,7 @@ function CadastroCompletoForm() {
 
   if (tokenValido === null) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-12 flex items-center justify-center">
+      <div className="flex justify-center items-center bg-gradient-to-b from-background to-muted/20 py-12 min-h-screen">
         <Card className="max-w-md">
           <CardContent className="py-12 text-center">
             <p className="text-muted-foreground">Validando acesso...</p>
@@ -118,11 +114,11 @@ function CadastroCompletoForm() {
 
   if (!tokenValido) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-12">
-        <div className="container max-w-2xl mx-auto px-4">
+      <div className="bg-gradient-to-b from-background to-muted/20 py-12 min-h-screen">
+        <div className="mx-auto px-4 max-w-2xl container">
           <Button asChild variant="ghost" className="mb-6">
             <Link href="/">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <ArrowLeft className="mr-2 w-4 h-4" />
               Voltar
             </Link>
           </Button>
@@ -152,11 +148,11 @@ function CadastroCompletoForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 py-12">
-      <div className="container max-w-4xl mx-auto px-4">
+    <div className="bg-gradient-to-b from-background to-muted/20 py-12 min-h-screen">
+      <div className="mx-auto px-4 max-w-4xl container">
         <Button asChild variant="ghost" className="mb-6">
           <Link href="/">
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="mr-2 w-4 h-4" />
             Voltar
           </Link>
         </Button>
@@ -166,7 +162,7 @@ function CadastroCompletoForm() {
             <div className="flex items-center gap-3">
               <CheckCircle2 className="w-8 h-8 text-accent" />
               <div>
-                <CardTitle className="text-3xl font-bold">Cadastro Completo</CardTitle>
+                <CardTitle className="font-bold text-3xl">Cadastro Completo</CardTitle>
                 <CardDescription className="text-base">
                   Parabéns, {intencaoData?.nome}! Sua intenção foi aprovada. Complete seu cadastro abaixo.
                 </CardDescription>
@@ -175,10 +171,10 @@ function CadastroCompletoForm() {
           </CardHeader>
           <CardContent>
             {intencaoData && (
-              <Alert className="mb-6 bg-muted/50">
+              <Alert className="bg-muted/50 mb-6">
                 <AlertDescription>
-                  <p className="font-semibold mb-2">Dados da sua intenção:</p>
-                  <div className="text-sm space-y-1">
+                  <p className="mb-2 font-semibold">Dados da sua intenção:</p>
+                  <div className="space-y-1 text-sm">
                     <p>
                       <strong>Nome:</strong> {intencaoData.nome}
                     </p>
@@ -197,7 +193,7 @@ function CadastroCompletoForm() {
               <div className="space-y-4">
                 <h3 className="font-semibold text-lg">Dados Pessoais</h3>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="gap-4 grid md:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="telefone">Telefone *</Label>
                     <Input
@@ -247,7 +243,7 @@ function CadastroCompletoForm() {
                   />
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-4">
+                <div className="gap-4 grid md:grid-cols-3">
                   <div className="space-y-2">
                     <Label htmlFor="cidade">Cidade *</Label>
                     <Input
@@ -287,7 +283,7 @@ function CadastroCompletoForm() {
               <div className="space-y-4">
                 <h3 className="font-semibold text-lg">Informações Profissionais</h3>
 
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="gap-4 grid md:grid-cols-2">
                   <div className="space-y-2">
                     <Label htmlFor="cargo">Cargo Atual *</Label>
                     <Input
