@@ -16,15 +16,19 @@ Por favor, siga estas instruções cuidadosamente para iniciar o projeto!
     `npm run build`
     `npm run dev`
 
-3.  **Inspecione a Requisição de Rede no Navegador:**
-    Abra seu navegador e navegue para a página onde as intenções são listadas (provavelmente `http://localhost:3000/admin` ou a URL configurada para o seu frontend).
-    Abra as Ferramentas de Desenvolvedor do navegador (geralmente F12 no Windows/Linux ou Cmd+Option+I no macOS).
-    Vá para a aba 'Rede' (Network).
-    Recarregue a página (Ctrl+R ou F5).
-    Na lista de requisições, procure por uma requisição para `/intention` (o nome exato pode variar, mas procure por algo que contenha 'intention' e seja um GET request).
-    Clique nesta requisição e vá para a aba 'Resposta' (Response) ou 'Pré-visualização' (Preview).
-    Verifique o JSON retornado. O campo `status` deve estar presente em cada objeto de intenção.
+3.  **Adicione as variáveis de ambiente**
+    Crie o `.env` no backend e no frontend:
 
-Por favor, me diga o que você vê na resposta JSON da requisição `/intention`.
-Se o `status` estiver presente no JSON, então o problema é na renderização do frontend.
-Se o `status` *não* estiver presente no JSON, então o problema ainda está no backend.
+    frontend: 
+    /frontend/.env
+    `NEXT_PUBLIC_ADMIN_PASSWORD=senha do administrador`
+    `NEXT_PUBLIC_API_URL=http://localhost:PORT`
+
+    backend:
+    /backend/prisma/.env
+    `PORT_EXPRESS=PORT`
+    passe os dados do banco dados como no exemplo abaixo:
+    `DATABASE_URL=postgresql://postgres:root@192.168.1.108:5433/networking_group?schema=public`
+
+4. **Rodar as migrates do prisma**
+    `cd backend/ && npx prisma generate && npx prisma studio`
