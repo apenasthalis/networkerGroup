@@ -41,3 +41,18 @@ export async function remove(req: Request, res: Response) {
     res.status(400).json({ error: error.message });
   }
 }
+
+export async function completeRegistration(req: Request, res: Response) {
+  const { token, ...formData } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ error: "Token é obrigatório para completar o cadastro." });
+  }
+
+  try {
+    const updatedMember = await memberService.completeMemberRegistration(token, formData);
+    res.status(200).json(updatedMember);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
