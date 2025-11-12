@@ -1,0 +1,34 @@
+Por favor, siga estas instruções cuidadosamente para nos ajudar a depurar o problema:
+
+1.  **Reinicie o Backend:**
+    Abra um terminal e navegue até a pasta do backend:
+    `cd /opt/gestao-networking/backend`
+    Pare qualquer processo do backend que esteja rodando (geralmente com Ctrl+C).
+    Execute os seguintes comandos, um por um:
+    `npm install`
+    `npm run build`
+    `npm start`
+
+2.  **Reinicie o Frontend e Limpe o Cache:**
+    Abra *outro* terminal e navegue até a pasta do frontend:
+    `cd /opt/gestao-networking/frontend`
+    Pare qualquer processo do frontend que esteja rodando (geralmente com Ctrl+C).
+    Limpe o cache do Next.js (isso é importante!):
+    `rm -rf .next/cache`
+    Execute os seguintes comandos, um por um:
+    `npm install`
+    `npm run build`
+    `npm start`
+
+3.  **Inspecione a Requisição de Rede no Navegador:**
+    Abra seu navegador e navegue para a página onde as intenções são listadas (provavelmente `http://localhost:3000/admin` ou a URL configurada para o seu frontend).
+    Abra as Ferramentas de Desenvolvedor do navegador (geralmente F12 no Windows/Linux ou Cmd+Option+I no macOS).
+    Vá para a aba 'Rede' (Network).
+    Recarregue a página (Ctrl+R ou F5).
+    Na lista de requisições, procure por uma requisição para `/intention` (o nome exato pode variar, mas procure por algo que contenha 'intention' e seja um GET request).
+    Clique nesta requisição e vá para a aba 'Resposta' (Response) ou 'Pré-visualização' (Preview).
+    Verifique o JSON retornado. O campo `status` deve estar presente em cada objeto de intenção.
+
+Por favor, me diga o que você vê na resposta JSON da requisição `/intention`.
+Se o `status` estiver presente no JSON, então o problema é na renderização do frontend.
+Se o `status` *não* estiver presente no JSON, então o problema ainda está no backend.
