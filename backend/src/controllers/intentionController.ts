@@ -32,6 +32,26 @@ export async function update(req: Request, res: Response) {
   }
 }
 
+export async function approve(req: Request, res: Response) {
+  const publicId = String(req.params.publicId);
+  try {
+    const result = await intentionService.approveIntention(publicId);
+    res.json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function refuse(req: Request, res: Response) {
+  const publicId = String(req.params.publicId);
+  try {
+    const result = await intentionService.refuseIntention(publicId);
+    res.json(result);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function remove(req: Request, res: Response) {
   const publicId = String(req.params.publicId);
   try {
